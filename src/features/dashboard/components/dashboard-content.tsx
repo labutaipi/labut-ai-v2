@@ -9,6 +9,9 @@ import RegionMap from '@/features/dashboard/components/region-map'
 import TopicsBadges from '@/features/dashboard/components/topics-badges'
 import InsightCard from '@/features/dashboard/components/insight-card'
 import BusinessCard from '@/features/dashboard/components/business-card'
+import NeighborhoodHeatmap from '@/features/dashboard/components/neighborhood-heatmap'
+import { ChatSheet } from '@/features/dashboard/components/chat-sheet'
+import { InfoTooltip } from '@/components/info-tooltip'
 import { Alert, AlertDescription } from '@/components/ui/alert'
 import { Badge } from '@/components/ui/badge'
 import {
@@ -25,6 +28,7 @@ import {
   useTrends,
   useTrendsByRegion,
   useTrendTopics,
+  useNeighborhoodMap,
 } from '@/features/dashboard/hooks/use-trends'
 import { DashboardSkeleton } from './dashboard-skeleton'
 
@@ -46,6 +50,7 @@ export function DashboardContent() {
   const { data: trends, isLoading: trendsLoading } = useTrends(trendsInput)
   const { data: byRegion } = useTrendsByRegion(trendsInput)
   const { data: topics } = useTrendTopics(trendsInput)
+  const { data: neighborhood } = useNeighborhoodMap(trendsInput)
 
   useEffect(() => {
     if (user && (!user.segmentSlug || !user.citySlug)) {
@@ -86,10 +91,34 @@ export function DashboardContent() {
         <Badge variant="kicker" className="mb-1">
           Seu painel de mercado
         </Badge>
-        <h1 className="text-2xl font-bold text-(--sea-ink) sm:text-3xl">
-          {segment.icon} {segment.label}{' '}
-          <span className="text-(--sea-ink-soft)">em {city.label}</span>
-        </h1>
+        <div className="flex items-center justify-between">
+          <h1 className="text-2xl font-bold text-(--sea-ink) sm:text-3xl">
+            {segment.icon} {segment.label}{' '}
+            <span className="text-(--sea-ink-soft)">em {city.label}</span>
+          </h1>
+          <ChatSheet
+            context={{
+              segmentLabel: segment.label,
+              cityLabel: city.label,
+              businessName: user.businessName ?? null,
+              targetAudience: user.targetAudience ?? null,
+              peak,
+              avg,
+              trend,
+              risingQueries: relatedQueries
+                .map((q: any) => q.query ?? '')
+                .filter(Boolean)
+                .slice(0, 8),
+              topics: [
+                ...((topics?.data as any)?.rising ?? []).map((t: any) => t.topic?.title ?? ''),
+                ...((topics?.data as any)?.top ?? []).map((t: any) => t.topic?.title ?? ''),
+              ]
+                .filter(Boolean)
+                .slice(0, 8),
+              neighborhoodTop: ((neighborhood?.data as any) ?? []).slice(0, 5),
+            }}
+          />
+        </div>
         {user.businessName && (
           <p className="mt-1 text-sm text-(--sea-ink-soft)">
             {user.businessName}
@@ -113,12 +142,14 @@ export function DashboardContent() {
           value={`${peak}`}
           subtitle="nos últimos 90 dias"
           color="green"
+          tooltip="O maior valor de interesse registrado no período. Fonte: Google Trends. Escala de 0 a 100 — 100 representa o momento de maior busca pelo segmento."
         />
         <KpiCard
           label="Interesse médio"
           value={`${avg}`}
           subtitle="média do período"
           color="neutral"
+          tooltip="Média aritmética de todos os pontos da série histórica dos últimos 90 dias. Fonte: Google Trends via SerpAPI."
         />
         <KpiCard
           label="Tendência atual"
@@ -134,12 +165,16 @@ export function DashboardContent() {
             trend === 'up' ? 'green' : trend === 'down' ? 'red' : 'neutral'
           }
           arrow={trend}
+          tooltip="Compara o último ponto da série com o penúltimo. Se o interesse desta semana for maior que o da anterior, a tendência é 'Em alta'. Fonte: Google Trends."
         />
       </div>
 
       <Card className="mb-6 gap-0 py-0">
         <CardHeader className="px-6 pb-0 pt-6">
-          <CardTitle>Interesse ao longo do tempo</CardTitle>
+          <div className="flex items-center gap-2">
+            <CardTitle>Interesse ao longo do tempo</CardTitle>
+            <InfoTooltip text="Fonte: Google Trends via SerpAPI. Mostra o volume relativo de buscas pelas palavras-chave do seu segmento. A escala vai de 0 a 100, onde 100 representa o maior pico de interesse no período." />
+          </div>
           <CardDescription>Últimos 90 dias — escala de 0 a 100</CardDescription>
         </CardHeader>
         <CardContent className="px-6 pb-6 pt-4">
@@ -160,7 +195,10 @@ export function DashboardContent() {
       <div className="mb-6 grid gap-6 lg:grid-cols-2">
         <Card className="gap-0 py-0">
           <CardHeader className="px-6 pb-0 pt-6">
-            <CardTitle>Interesse por região</CardTitle>
+            <div className="flex items-center gap-2">
+              <CardTitle>Interesse por região</CardTitle>
+              <InfoTooltip text="Fonte: Google Trends (GEO_MAP) via SerpAPI. Compara o interesse relativo pelo seu segmento entre as regiões do Piauí. Quanto maior a barra, maior a concentração de buscas naquela região." />
+            </div>
             <CardDescription>
               Onde as pessoas mais buscam seu segmento
             </CardDescription>
@@ -172,7 +210,10 @@ export function DashboardContent() {
 
         <Card className="gap-0 py-0">
           <CardHeader className="px-6 pb-0 pt-6">
-            <CardTitle>Tópicos relacionados</CardTitle>
+            <div className="flex items-center gap-2">
+              <CardTitle>Tópicos relacionados</CardTitle>
+              <InfoTooltip text="Fonte: Google Trends (RELATED_TOPICS) via SerpAPI. São assuntos que o Google identifica como fortemente associados às buscas do seu segmento. 'Em alta' significa crescimento recente de interesse." />
+            </div>
             <CardDescription>Assuntos em alta no seu segmento</CardDescription>
           </CardHeader>
           <CardContent className="px-6 pb-6 pt-4">
@@ -184,7 +225,10 @@ export function DashboardContent() {
       <div className="mb-6 grid gap-6 lg:grid-cols-2">
         <Card className="gap-0 py-0">
           <CardHeader className="px-6 pb-0 pt-6">
-            <CardTitle>O que as pessoas estão buscando</CardTitle>
+            <div className="flex items-center gap-2">
+              <CardTitle>O que as pessoas estão buscando</CardTitle>
+              <InfoTooltip text="Fonte: Google Trends (RELATED_QUERIES) via SerpAPI. São termos de busca reais que cresceram junto com as palavras-chave do seu segmento nos últimos 90 dias." />
+            </div>
             <CardDescription>
               Buscas em alta relacionadas ao seu segmento
             </CardDescription>
@@ -202,6 +246,23 @@ export function DashboardContent() {
 
         <BusinessCard businessName={user.businessName} />
       </div>
+
+      {user.citySlug === 'teresina' && (
+        <Card className="gap-0 py-0">
+          <CardHeader className="px-6 pb-0 pt-6">
+            <div className="flex items-center gap-2">
+              <CardTitle>Oportunidade por bairro</CardTitle>
+              <InfoTooltip text="Fonte: Google Maps via SerpAPI. Buscamos o seu segmento nas coordenadas de cada bairro de Teresina (zoom 14z, ~1-2km de raio). Contamos os negócios encontrados e calculamos a média de avaliações. Score = baixa concorrência (60%) + clientes insatisfeitos (40%). Atualizado a cada 48h." />
+            </div>
+            <CardDescription>
+              Saturação e potencial de mercado em Teresina — via Google Maps
+            </CardDescription>
+          </CardHeader>
+          <CardContent className="px-6 pb-6 pt-4">
+            <NeighborhoodHeatmap data={(neighborhood?.data as any) ?? null} />
+          </CardContent>
+        </Card>
+      )}
     </main>
   )
 }

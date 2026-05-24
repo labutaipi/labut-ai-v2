@@ -35,6 +35,15 @@ export function useTrendTopics(input: TrendsInput | null) {
   })
 }
 
+export function useNeighborhoodMap(input: TrendsInput | null) {
+  return useQuery({
+    ...orpc.trends.neighborhood.queryOptions({
+      input: input ?? { segmentSlug: '', citySlug: '' },
+    }),
+    enabled: !!input,
+  })
+}
+
 export function useTrendsCacheInfo(input: TrendsInput | null) {
   return useQuery({
     ...orpc.trends.cacheInfo.queryOptions({

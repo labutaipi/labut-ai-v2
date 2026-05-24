@@ -1,4 +1,5 @@
 import { Card, CardContent } from '@/components/ui/card'
+import { InfoTooltip } from '@/components/info-tooltip'
 import { cn } from '@/lib/utils'
 
 type Color = 'green' | 'red' | 'neutral' | 'orange'
@@ -10,6 +11,7 @@ interface KpiCardProps {
   subtitle?: string
   color?: Color
   arrow?: Arrow
+  tooltip?: string
 }
 
 const colorMap: Record<Color, string> = {
@@ -19,13 +21,16 @@ const colorMap: Record<Color, string> = {
   orange: '#EA580C',
 }
 
-export default function KpiCard({ label, value, subtitle, color = 'neutral', arrow }: KpiCardProps) {
+export default function KpiCard({ label, value, subtitle, color = 'neutral', arrow, tooltip }: KpiCardProps) {
   return (
     <Card className="gap-2 py-5">
       <CardContent className="px-5">
-        <p className="mb-2 text-xs font-semibold uppercase tracking-wide text-[var(--sea-ink-soft)]">
-          {label}
-        </p>
+        <div className="mb-2 flex items-center gap-1.5">
+          <p className="text-xs font-semibold uppercase tracking-wide text-[var(--sea-ink-soft)]">
+            {label}
+          </p>
+          {tooltip && <InfoTooltip text={tooltip} />}
+        </div>
         <div className="flex items-baseline gap-2">
           <span
             className="text-2xl font-bold"

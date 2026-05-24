@@ -8,6 +8,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import { InfoTooltip } from "@/components/info-tooltip";
 import { useBusinessProfile, useSyncBusiness, useConfirmBusiness, useRejectBusiness } from "@/hooks/use-business";
 import { formatDistanceToNow } from "../lib/format-distance";
 
@@ -41,11 +42,16 @@ export default function BusinessCard({
   const confirm = useConfirmBusiness();
   const reject = useRejectBusiness();
 
+  const presencaTooltip = "Fonte: Google Maps via SerpAPI. Buscamos o nome do seu negócio no Google Maps e exibimos o rating público e as avaliações mais recentes dos seus clientes."
+
   if (!businessName) {
     return (
       <Card className="gap-0 py-0">
         <CardHeader className="px-6 pb-0 pt-6">
-          <CardTitle>Sua presença no Google</CardTitle>
+          <div className="flex items-center gap-2">
+            <CardTitle>Sua presença no Google</CardTitle>
+            <InfoTooltip text={presencaTooltip} />
+          </div>
           <CardDescription>
             Avaliações e visibilidade do seu negócio
           </CardDescription>
@@ -68,7 +74,10 @@ export default function BusinessCard({
       <CardHeader className="px-6 pb-0 pt-6">
         <div className="flex items-start justify-between gap-4">
           <div>
-            <CardTitle>Sua presença no Google</CardTitle>
+            <div className="flex items-center gap-2">
+              <CardTitle>Sua presença no Google</CardTitle>
+              <InfoTooltip text={presencaTooltip} />
+            </div>
             <CardDescription>
               {profile
                 ? `Sincronizado ${formatDistanceToNow(new Date(profile.syncedAt))}`

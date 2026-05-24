@@ -8,6 +8,7 @@ import {
   fetchSegmentTrendsByRegion,
   fetchSegmentRelatedTopics,
 } from '@/lib/serpapi/trends'
+import { fetchNeighborhoodMap } from '@/lib/serpapi/neighborhood'
 
 const trendsInput = z.object({
   segmentSlug: z.string().refine(isValidSegmentSlug, 'Segmento inválido'),
@@ -25,6 +26,10 @@ export const trendsRouter = {
 
   topics: protectedProcedure.input(trendsInput).handler(async ({ input }) => {
     return fetchSegmentRelatedTopics(input.segmentSlug as any, input.citySlug as any)
+  }),
+
+  neighborhood: protectedProcedure.input(trendsInput).handler(async ({ input }) => {
+    return fetchNeighborhoodMap(input.segmentSlug as any, input.citySlug)
   }),
 
   cacheInfo: protectedProcedure

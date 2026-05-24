@@ -8,6 +8,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import { InfoTooltip } from "@/components/info-tooltip";
 import type { InsightContent } from "@/lib/ai/insights";
 import { useGenerateInsight, useLatestInsight } from "@/hooks/use-insights";
 import { formatDistanceToNow } from "../lib/format-distance";
@@ -31,7 +32,10 @@ export default function InsightCard() {
       <CardHeader className="px-6 pb-0 pt-6">
         <div className="flex items-start justify-between gap-4">
           <div>
-            <CardTitle>O que a IA detectou</CardTitle>
+            <div className="flex items-center gap-2">
+              <CardTitle>O que a IA detectou</CardTitle>
+              <InfoTooltip text="Gerado pelo Claude (Anthropic) com base nos seus dados de tendências do Google Trends. A IA analisa pico de interesse, média, tendência e buscas em alta para gerar três insights: o que está em alta, uma oportunidade e uma ação recomendada." />
+            </div>
             <CardDescription>
               {insight
                 ? `Atualizado ${formatDistanceToNow(new Date(insight.generatedAt))}`

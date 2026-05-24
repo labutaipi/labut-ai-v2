@@ -12,6 +12,7 @@ import { getCityBySlug } from '@/lib/cities'
 import { getSegmentBySlug } from '@/lib/segments'
 import { useUpdateUser, useUser } from '@/hooks/use-user'
 import { Alert, AlertDescription } from '@/components/ui/alert'
+import { DeleteAccountDialog } from '@/components/delete-account-dialog'
 
 export default function PerfilPage() {
   const router = useRouter()
@@ -20,6 +21,7 @@ export default function PerfilPage() {
 
   const [name, setName] = useState<string>()
   const [businessName, setBusinessName] = useState<string>()
+  const [deleteDialogOpen, setDeleteDialogOpen] = useState(false)
 
   if (isLoading) {
     return (
@@ -161,7 +163,7 @@ export default function PerfilPage() {
         </Card>
       </div>
 
-      <div className="mt-8 border-t border-[var(--line)] pt-8">
+      <div className="mt-8 flex items-center justify-between border-t border-[var(--line)] pt-8">
         <Button
           variant="outline"
           onClick={handleSignOut}
@@ -169,7 +171,20 @@ export default function PerfilPage() {
         >
           Sair da conta
         </Button>
+        <Button
+          variant="ghost"
+          onClick={() => setDeleteDialogOpen(true)}
+          className="rounded-xl text-red-500 hover:bg-red-50 hover:text-red-700 dark:hover:bg-red-950/30"
+        >
+          Deletar conta
+        </Button>
       </div>
+
+      <DeleteAccountDialog
+        open={deleteDialogOpen}
+        onOpenChange={setDeleteDialogOpen}
+        userEmail={user.email}
+      />
     </main>
   )
 }
