@@ -196,15 +196,29 @@ export function DashboardContent() {
         <Card className="gap-0 py-0">
           <CardHeader className="px-6 pb-0 pt-6">
             <div className="flex items-center gap-2">
-              <CardTitle>Interesse por região</CardTitle>
-              <InfoTooltip text="Fonte: Google Trends (GEO_MAP) via SerpAPI. Compara o interesse relativo pelo seu segmento entre as regiões do Piauí. Quanto maior a barra, maior a concentração de buscas naquela região." />
+              <CardTitle>
+                {neighborhood?.data?.length ? 'Oportunidade por bairro' : 'Interesse por região'}
+              </CardTitle>
+              <InfoTooltip
+                text={
+                  neighborhood?.data?.length
+                    ? 'Fonte: Google Maps via SerpAPI. Buscamos o seu segmento nas coordenadas de cada bairro de Teresina. Contamos os negócios e calculamos a média de avaliações. Score = baixa concorrência (60%) + clientes insatisfeitos (40%). Atualizado a cada 48h.'
+                    : 'Fonte: Google Trends (GEO_MAP) via SerpAPI. Compara o interesse relativo pelo seu segmento entre as regiões do Piauí. Quanto maior a barra, maior a concentração de buscas naquela região.'
+                }
+              />
             </div>
             <CardDescription>
-              Onde as pessoas mais buscam seu segmento
+              {neighborhood?.data?.length
+                ? 'Saturação e potencial de mercado por bairro'
+                : 'Onde as pessoas mais buscam seu segmento'}
             </CardDescription>
           </CardHeader>
           <CardContent className="px-6 pb-6 pt-4">
-            <RegionMap data={(byRegion?.data as any) ?? null} />
+            {neighborhood?.data?.length ? (
+              <NeighborhoodHeatmap data={neighborhood.data as any} />
+            ) : (
+              <RegionMap data={(byRegion?.data as any) ?? null} />
+            )}
           </CardContent>
         </Card>
 
@@ -247,22 +261,6 @@ export function DashboardContent() {
         <BusinessCard businessName={user.businessName} />
       </div>
 
-      {user.citySlug === 'teresina' && (
-        <Card className="gap-0 py-0">
-          <CardHeader className="px-6 pb-0 pt-6">
-            <div className="flex items-center gap-2">
-              <CardTitle>Oportunidade por bairro</CardTitle>
-              <InfoTooltip text="Fonte: Google Maps via SerpAPI. Buscamos o seu segmento nas coordenadas de cada bairro de Teresina (zoom 14z, ~1-2km de raio). Contamos os negócios encontrados e calculamos a média de avaliações. Score = baixa concorrência (60%) + clientes insatisfeitos (40%). Atualizado a cada 48h." />
-            </div>
-            <CardDescription>
-              Saturação e potencial de mercado em Teresina — via Google Maps
-            </CardDescription>
-          </CardHeader>
-          <CardContent className="px-6 pb-6 pt-4">
-            <NeighborhoodHeatmap data={(neighborhood?.data as any) ?? null} />
-          </CardContent>
-        </Card>
-      )}
     </main>
   )
 }
