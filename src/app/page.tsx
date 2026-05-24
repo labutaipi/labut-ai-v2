@@ -18,7 +18,7 @@ export default function LandingPage() {
     {
       num: '2',
       title: 'Escolha seu segmento',
-      desc: 'Selecione a área do seu negócio e a sua cidade no Piauí.',
+      desc: 'Selecione a área do seu negócio e a sua cidade em Teresina.',
     },
     {
       num: '3',
@@ -36,10 +36,10 @@ export default function LandingPage() {
 
         <Badge variant="kicker" className="mb-3">Labut AI</Badge>
         <h1 className="display-title mx-auto mb-5 max-w-3xl text-4xl font-bold leading-[1.05] tracking-tight text-(--sea-ink) sm:text-5xl">
-          O mercado do Piauí na palma da sua mão
+          O mercado de Teresina na palma da sua mão
         </h1>
         <p className="mx-auto mb-8 max-w-xl text-base text-(--sea-ink-soft) sm:text-lg">
-          Veja o que as pessoas estão buscando no Google para o seu tipo de negócio, na sua cidade — de graça.
+          Do achismo à decisão inteligente: Transformando dados complexos em decisões simples para impulsionar pequenos negócios
         </p>
 
         <div className="flex flex-wrap justify-center gap-3">

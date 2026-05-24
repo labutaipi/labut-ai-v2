@@ -10,7 +10,11 @@ export function useSaveOnboarding() {
       segmentSlug: string
       citySlug: string
       audienceSlug?: string
-      businessName?: string
+      businessName: string
+      cep?: string
+      bairro?: string
+      zona?: 'Norte' | 'Sul' | 'Leste' | 'Sudeste' | 'Centro'
+      cnpj?: string
     }) => client.onboarding.save(data),
     onSuccess: () => {
       queryClient.invalidateQueries(orpc.user.me.queryOptions({ input: {} }))

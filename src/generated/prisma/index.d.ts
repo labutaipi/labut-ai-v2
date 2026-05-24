@@ -1621,6 +1621,10 @@ export namespace Prisma {
     segmentSlug: string | null
     citySlug: string | null
     targetAudience: string | null
+    cep: string | null
+    bairro: string | null
+    zona: string | null
+    cnpj: string | null
     plan: $Enums.Plan | null
   }
 
@@ -1636,6 +1640,10 @@ export namespace Prisma {
     segmentSlug: string | null
     citySlug: string | null
     targetAudience: string | null
+    cep: string | null
+    bairro: string | null
+    zona: string | null
+    cnpj: string | null
     plan: $Enums.Plan | null
   }
 
@@ -1651,6 +1659,10 @@ export namespace Prisma {
     segmentSlug: number
     citySlug: number
     targetAudience: number
+    cep: number
+    bairro: number
+    zona: number
+    cnpj: number
     plan: number
     _all: number
   }
@@ -1668,6 +1680,10 @@ export namespace Prisma {
     segmentSlug?: true
     citySlug?: true
     targetAudience?: true
+    cep?: true
+    bairro?: true
+    zona?: true
+    cnpj?: true
     plan?: true
   }
 
@@ -1683,6 +1699,10 @@ export namespace Prisma {
     segmentSlug?: true
     citySlug?: true
     targetAudience?: true
+    cep?: true
+    bairro?: true
+    zona?: true
+    cnpj?: true
     plan?: true
   }
 
@@ -1698,6 +1718,10 @@ export namespace Prisma {
     segmentSlug?: true
     citySlug?: true
     targetAudience?: true
+    cep?: true
+    bairro?: true
+    zona?: true
+    cnpj?: true
     plan?: true
     _all?: true
   }
@@ -1786,6 +1810,10 @@ export namespace Prisma {
     segmentSlug: string | null
     citySlug: string | null
     targetAudience: string | null
+    cep: string | null
+    bairro: string | null
+    zona: string | null
+    cnpj: string | null
     plan: $Enums.Plan
     _count: UserCountAggregateOutputType | null
     _min: UserMinAggregateOutputType | null
@@ -1818,6 +1846,10 @@ export namespace Prisma {
     segmentSlug?: boolean
     citySlug?: boolean
     targetAudience?: boolean
+    cep?: boolean
+    bairro?: boolean
+    zona?: boolean
+    cnpj?: boolean
     plan?: boolean
     sessions?: boolean | User$sessionsArgs<ExtArgs>
     accounts?: boolean | User$accountsArgs<ExtArgs>
@@ -1838,6 +1870,10 @@ export namespace Prisma {
     segmentSlug?: boolean
     citySlug?: boolean
     targetAudience?: boolean
+    cep?: boolean
+    bairro?: boolean
+    zona?: boolean
+    cnpj?: boolean
     plan?: boolean
   }, ExtArgs["result"]["user"]>
 
@@ -1853,6 +1889,10 @@ export namespace Prisma {
     segmentSlug?: boolean
     citySlug?: boolean
     targetAudience?: boolean
+    cep?: boolean
+    bairro?: boolean
+    zona?: boolean
+    cnpj?: boolean
     plan?: boolean
   }, ExtArgs["result"]["user"]>
 
@@ -1868,10 +1908,14 @@ export namespace Prisma {
     segmentSlug?: boolean
     citySlug?: boolean
     targetAudience?: boolean
+    cep?: boolean
+    bairro?: boolean
+    zona?: boolean
+    cnpj?: boolean
     plan?: boolean
   }
 
-  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "email" | "emailVerified" | "image" | "createdAt" | "updatedAt" | "businessName" | "segmentSlug" | "citySlug" | "targetAudience" | "plan", ExtArgs["result"]["user"]>
+  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "email" | "emailVerified" | "image" | "createdAt" | "updatedAt" | "businessName" | "segmentSlug" | "citySlug" | "targetAudience" | "cep" | "bairro" | "zona" | "cnpj" | "plan", ExtArgs["result"]["user"]>
   export type UserInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     sessions?: boolean | User$sessionsArgs<ExtArgs>
     accounts?: boolean | User$accountsArgs<ExtArgs>
@@ -1902,6 +1946,10 @@ export namespace Prisma {
       segmentSlug: string | null
       citySlug: string | null
       targetAudience: string | null
+      cep: string | null
+      bairro: string | null
+      zona: string | null
+      cnpj: string | null
       plan: $Enums.Plan
     }, ExtArgs["result"]["user"]>
     composites: {}
@@ -2341,6 +2389,10 @@ export namespace Prisma {
     readonly segmentSlug: FieldRef<"User", 'String'>
     readonly citySlug: FieldRef<"User", 'String'>
     readonly targetAudience: FieldRef<"User", 'String'>
+    readonly cep: FieldRef<"User", 'String'>
+    readonly bairro: FieldRef<"User", 'String'>
+    readonly zona: FieldRef<"User", 'String'>
+    readonly cnpj: FieldRef<"User", 'String'>
     readonly plan: FieldRef<"User", 'Plan'>
   }
     
@@ -8253,6 +8305,7 @@ export namespace Prisma {
     name: string | null
     rating: number | null
     reviewCount: number | null
+    confirmed: boolean | null
     syncedAt: Date | null
   }
 
@@ -8263,6 +8316,7 @@ export namespace Prisma {
     name: string | null
     rating: number | null
     reviewCount: number | null
+    confirmed: boolean | null
     syncedAt: Date | null
   }
 
@@ -8273,6 +8327,7 @@ export namespace Prisma {
     name: number
     rating: number
     reviewCount: number
+    confirmed: number
     syncedAt: number
     _all: number
   }
@@ -8295,6 +8350,7 @@ export namespace Prisma {
     name?: true
     rating?: true
     reviewCount?: true
+    confirmed?: true
     syncedAt?: true
   }
 
@@ -8305,6 +8361,7 @@ export namespace Prisma {
     name?: true
     rating?: true
     reviewCount?: true
+    confirmed?: true
     syncedAt?: true
   }
 
@@ -8315,6 +8372,7 @@ export namespace Prisma {
     name?: true
     rating?: true
     reviewCount?: true
+    confirmed?: true
     syncedAt?: true
     _all?: true
   }
@@ -8412,6 +8470,7 @@ export namespace Prisma {
     name: string
     rating: number | null
     reviewCount: number | null
+    confirmed: boolean
     syncedAt: Date
     _count: BusinessProfileCountAggregateOutputType | null
     _avg: BusinessProfileAvgAggregateOutputType | null
@@ -8441,6 +8500,7 @@ export namespace Prisma {
     name?: boolean
     rating?: boolean
     reviewCount?: boolean
+    confirmed?: boolean
     syncedAt?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
     reviews?: boolean | BusinessProfile$reviewsArgs<ExtArgs>
@@ -8454,6 +8514,7 @@ export namespace Prisma {
     name?: boolean
     rating?: boolean
     reviewCount?: boolean
+    confirmed?: boolean
     syncedAt?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["businessProfile"]>
@@ -8465,6 +8526,7 @@ export namespace Prisma {
     name?: boolean
     rating?: boolean
     reviewCount?: boolean
+    confirmed?: boolean
     syncedAt?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["businessProfile"]>
@@ -8476,10 +8538,11 @@ export namespace Prisma {
     name?: boolean
     rating?: boolean
     reviewCount?: boolean
+    confirmed?: boolean
     syncedAt?: boolean
   }
 
-  export type BusinessProfileOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "placeId" | "name" | "rating" | "reviewCount" | "syncedAt", ExtArgs["result"]["businessProfile"]>
+  export type BusinessProfileOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "placeId" | "name" | "rating" | "reviewCount" | "confirmed" | "syncedAt", ExtArgs["result"]["businessProfile"]>
   export type BusinessProfileInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     user?: boolean | UserDefaultArgs<ExtArgs>
     reviews?: boolean | BusinessProfile$reviewsArgs<ExtArgs>
@@ -8505,6 +8568,7 @@ export namespace Prisma {
       name: string
       rating: number | null
       reviewCount: number | null
+      confirmed: boolean
       syncedAt: Date
     }, ExtArgs["result"]["businessProfile"]>
     composites: {}
@@ -8937,6 +9001,7 @@ export namespace Prisma {
     readonly name: FieldRef<"BusinessProfile", 'String'>
     readonly rating: FieldRef<"BusinessProfile", 'Float'>
     readonly reviewCount: FieldRef<"BusinessProfile", 'Int'>
+    readonly confirmed: FieldRef<"BusinessProfile", 'Boolean'>
     readonly syncedAt: FieldRef<"BusinessProfile", 'DateTime'>
   }
     
@@ -10517,6 +10582,10 @@ export namespace Prisma {
     segmentSlug: 'segmentSlug',
     citySlug: 'citySlug',
     targetAudience: 'targetAudience',
+    cep: 'cep',
+    bairro: 'bairro',
+    zona: 'zona',
+    cnpj: 'cnpj',
     plan: 'plan'
   };
 
@@ -10600,6 +10669,7 @@ export namespace Prisma {
     name: 'name',
     rating: 'rating',
     reviewCount: 'reviewCount',
+    confirmed: 'confirmed',
     syncedAt: 'syncedAt'
   };
 
@@ -10772,6 +10842,10 @@ export namespace Prisma {
     segmentSlug?: StringNullableFilter<"User"> | string | null
     citySlug?: StringNullableFilter<"User"> | string | null
     targetAudience?: StringNullableFilter<"User"> | string | null
+    cep?: StringNullableFilter<"User"> | string | null
+    bairro?: StringNullableFilter<"User"> | string | null
+    zona?: StringNullableFilter<"User"> | string | null
+    cnpj?: StringNullableFilter<"User"> | string | null
     plan?: EnumPlanFilter<"User"> | $Enums.Plan
     sessions?: SessionListRelationFilter
     accounts?: AccountListRelationFilter
@@ -10791,6 +10865,10 @@ export namespace Prisma {
     segmentSlug?: SortOrderInput | SortOrder
     citySlug?: SortOrderInput | SortOrder
     targetAudience?: SortOrderInput | SortOrder
+    cep?: SortOrderInput | SortOrder
+    bairro?: SortOrderInput | SortOrder
+    zona?: SortOrderInput | SortOrder
+    cnpj?: SortOrderInput | SortOrder
     plan?: SortOrder
     sessions?: SessionOrderByRelationAggregateInput
     accounts?: AccountOrderByRelationAggregateInput
@@ -10813,6 +10891,10 @@ export namespace Prisma {
     segmentSlug?: StringNullableFilter<"User"> | string | null
     citySlug?: StringNullableFilter<"User"> | string | null
     targetAudience?: StringNullableFilter<"User"> | string | null
+    cep?: StringNullableFilter<"User"> | string | null
+    bairro?: StringNullableFilter<"User"> | string | null
+    zona?: StringNullableFilter<"User"> | string | null
+    cnpj?: StringNullableFilter<"User"> | string | null
     plan?: EnumPlanFilter<"User"> | $Enums.Plan
     sessions?: SessionListRelationFilter
     accounts?: AccountListRelationFilter
@@ -10832,6 +10914,10 @@ export namespace Prisma {
     segmentSlug?: SortOrderInput | SortOrder
     citySlug?: SortOrderInput | SortOrder
     targetAudience?: SortOrderInput | SortOrder
+    cep?: SortOrderInput | SortOrder
+    bairro?: SortOrderInput | SortOrder
+    zona?: SortOrderInput | SortOrder
+    cnpj?: SortOrderInput | SortOrder
     plan?: SortOrder
     _count?: UserCountOrderByAggregateInput
     _max?: UserMaxOrderByAggregateInput
@@ -10853,6 +10939,10 @@ export namespace Prisma {
     segmentSlug?: StringNullableWithAggregatesFilter<"User"> | string | null
     citySlug?: StringNullableWithAggregatesFilter<"User"> | string | null
     targetAudience?: StringNullableWithAggregatesFilter<"User"> | string | null
+    cep?: StringNullableWithAggregatesFilter<"User"> | string | null
+    bairro?: StringNullableWithAggregatesFilter<"User"> | string | null
+    zona?: StringNullableWithAggregatesFilter<"User"> | string | null
+    cnpj?: StringNullableWithAggregatesFilter<"User"> | string | null
     plan?: EnumPlanWithAggregatesFilter<"User"> | $Enums.Plan
   }
 
@@ -11212,6 +11302,7 @@ export namespace Prisma {
     name?: StringFilter<"BusinessProfile"> | string
     rating?: FloatNullableFilter<"BusinessProfile"> | number | null
     reviewCount?: IntNullableFilter<"BusinessProfile"> | number | null
+    confirmed?: BoolFilter<"BusinessProfile"> | boolean
     syncedAt?: DateTimeFilter<"BusinessProfile"> | Date | string
     user?: XOR<UserScalarRelationFilter, UserWhereInput>
     reviews?: BusinessReviewListRelationFilter
@@ -11224,6 +11315,7 @@ export namespace Prisma {
     name?: SortOrder
     rating?: SortOrderInput | SortOrder
     reviewCount?: SortOrderInput | SortOrder
+    confirmed?: SortOrder
     syncedAt?: SortOrder
     user?: UserOrderByWithRelationInput
     reviews?: BusinessReviewOrderByRelationAggregateInput
@@ -11239,6 +11331,7 @@ export namespace Prisma {
     name?: StringFilter<"BusinessProfile"> | string
     rating?: FloatNullableFilter<"BusinessProfile"> | number | null
     reviewCount?: IntNullableFilter<"BusinessProfile"> | number | null
+    confirmed?: BoolFilter<"BusinessProfile"> | boolean
     syncedAt?: DateTimeFilter<"BusinessProfile"> | Date | string
     user?: XOR<UserScalarRelationFilter, UserWhereInput>
     reviews?: BusinessReviewListRelationFilter
@@ -11251,6 +11344,7 @@ export namespace Prisma {
     name?: SortOrder
     rating?: SortOrderInput | SortOrder
     reviewCount?: SortOrderInput | SortOrder
+    confirmed?: SortOrder
     syncedAt?: SortOrder
     _count?: BusinessProfileCountOrderByAggregateInput
     _avg?: BusinessProfileAvgOrderByAggregateInput
@@ -11269,6 +11363,7 @@ export namespace Prisma {
     name?: StringWithAggregatesFilter<"BusinessProfile"> | string
     rating?: FloatNullableWithAggregatesFilter<"BusinessProfile"> | number | null
     reviewCount?: IntNullableWithAggregatesFilter<"BusinessProfile"> | number | null
+    confirmed?: BoolWithAggregatesFilter<"BusinessProfile"> | boolean
     syncedAt?: DateTimeWithAggregatesFilter<"BusinessProfile"> | Date | string
   }
 
@@ -11346,6 +11441,10 @@ export namespace Prisma {
     segmentSlug?: string | null
     citySlug?: string | null
     targetAudience?: string | null
+    cep?: string | null
+    bairro?: string | null
+    zona?: string | null
+    cnpj?: string | null
     plan?: $Enums.Plan
     sessions?: SessionCreateNestedManyWithoutUserInput
     accounts?: AccountCreateNestedManyWithoutUserInput
@@ -11365,6 +11464,10 @@ export namespace Prisma {
     segmentSlug?: string | null
     citySlug?: string | null
     targetAudience?: string | null
+    cep?: string | null
+    bairro?: string | null
+    zona?: string | null
+    cnpj?: string | null
     plan?: $Enums.Plan
     sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
     accounts?: AccountUncheckedCreateNestedManyWithoutUserInput
@@ -11384,6 +11487,10 @@ export namespace Prisma {
     segmentSlug?: NullableStringFieldUpdateOperationsInput | string | null
     citySlug?: NullableStringFieldUpdateOperationsInput | string | null
     targetAudience?: NullableStringFieldUpdateOperationsInput | string | null
+    cep?: NullableStringFieldUpdateOperationsInput | string | null
+    bairro?: NullableStringFieldUpdateOperationsInput | string | null
+    zona?: NullableStringFieldUpdateOperationsInput | string | null
+    cnpj?: NullableStringFieldUpdateOperationsInput | string | null
     plan?: EnumPlanFieldUpdateOperationsInput | $Enums.Plan
     sessions?: SessionUpdateManyWithoutUserNestedInput
     accounts?: AccountUpdateManyWithoutUserNestedInput
@@ -11403,6 +11510,10 @@ export namespace Prisma {
     segmentSlug?: NullableStringFieldUpdateOperationsInput | string | null
     citySlug?: NullableStringFieldUpdateOperationsInput | string | null
     targetAudience?: NullableStringFieldUpdateOperationsInput | string | null
+    cep?: NullableStringFieldUpdateOperationsInput | string | null
+    bairro?: NullableStringFieldUpdateOperationsInput | string | null
+    zona?: NullableStringFieldUpdateOperationsInput | string | null
+    cnpj?: NullableStringFieldUpdateOperationsInput | string | null
     plan?: EnumPlanFieldUpdateOperationsInput | $Enums.Plan
     sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
     accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput
@@ -11422,6 +11533,10 @@ export namespace Prisma {
     segmentSlug?: string | null
     citySlug?: string | null
     targetAudience?: string | null
+    cep?: string | null
+    bairro?: string | null
+    zona?: string | null
+    cnpj?: string | null
     plan?: $Enums.Plan
   }
 
@@ -11437,6 +11552,10 @@ export namespace Prisma {
     segmentSlug?: NullableStringFieldUpdateOperationsInput | string | null
     citySlug?: NullableStringFieldUpdateOperationsInput | string | null
     targetAudience?: NullableStringFieldUpdateOperationsInput | string | null
+    cep?: NullableStringFieldUpdateOperationsInput | string | null
+    bairro?: NullableStringFieldUpdateOperationsInput | string | null
+    zona?: NullableStringFieldUpdateOperationsInput | string | null
+    cnpj?: NullableStringFieldUpdateOperationsInput | string | null
     plan?: EnumPlanFieldUpdateOperationsInput | $Enums.Plan
   }
 
@@ -11452,6 +11571,10 @@ export namespace Prisma {
     segmentSlug?: NullableStringFieldUpdateOperationsInput | string | null
     citySlug?: NullableStringFieldUpdateOperationsInput | string | null
     targetAudience?: NullableStringFieldUpdateOperationsInput | string | null
+    cep?: NullableStringFieldUpdateOperationsInput | string | null
+    bairro?: NullableStringFieldUpdateOperationsInput | string | null
+    zona?: NullableStringFieldUpdateOperationsInput | string | null
+    cnpj?: NullableStringFieldUpdateOperationsInput | string | null
     plan?: EnumPlanFieldUpdateOperationsInput | $Enums.Plan
   }
 
@@ -11843,6 +11966,7 @@ export namespace Prisma {
     name: string
     rating?: number | null
     reviewCount?: number | null
+    confirmed?: boolean
     syncedAt?: Date | string
     user: UserCreateNestedOneWithoutBusinessProfileInput
     reviews?: BusinessReviewCreateNestedManyWithoutProfileInput
@@ -11855,6 +11979,7 @@ export namespace Prisma {
     name: string
     rating?: number | null
     reviewCount?: number | null
+    confirmed?: boolean
     syncedAt?: Date | string
     reviews?: BusinessReviewUncheckedCreateNestedManyWithoutProfileInput
   }
@@ -11865,6 +11990,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     rating?: NullableFloatFieldUpdateOperationsInput | number | null
     reviewCount?: NullableIntFieldUpdateOperationsInput | number | null
+    confirmed?: BoolFieldUpdateOperationsInput | boolean
     syncedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     user?: UserUpdateOneRequiredWithoutBusinessProfileNestedInput
     reviews?: BusinessReviewUpdateManyWithoutProfileNestedInput
@@ -11877,6 +12003,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     rating?: NullableFloatFieldUpdateOperationsInput | number | null
     reviewCount?: NullableIntFieldUpdateOperationsInput | number | null
+    confirmed?: BoolFieldUpdateOperationsInput | boolean
     syncedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     reviews?: BusinessReviewUncheckedUpdateManyWithoutProfileNestedInput
   }
@@ -11888,6 +12015,7 @@ export namespace Prisma {
     name: string
     rating?: number | null
     reviewCount?: number | null
+    confirmed?: boolean
     syncedAt?: Date | string
   }
 
@@ -11897,6 +12025,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     rating?: NullableFloatFieldUpdateOperationsInput | number | null
     reviewCount?: NullableIntFieldUpdateOperationsInput | number | null
+    confirmed?: BoolFieldUpdateOperationsInput | boolean
     syncedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -11907,6 +12036,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     rating?: NullableFloatFieldUpdateOperationsInput | number | null
     reviewCount?: NullableIntFieldUpdateOperationsInput | number | null
+    confirmed?: BoolFieldUpdateOperationsInput | boolean
     syncedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -12077,6 +12207,10 @@ export namespace Prisma {
     segmentSlug?: SortOrder
     citySlug?: SortOrder
     targetAudience?: SortOrder
+    cep?: SortOrder
+    bairro?: SortOrder
+    zona?: SortOrder
+    cnpj?: SortOrder
     plan?: SortOrder
   }
 
@@ -12092,6 +12226,10 @@ export namespace Prisma {
     segmentSlug?: SortOrder
     citySlug?: SortOrder
     targetAudience?: SortOrder
+    cep?: SortOrder
+    bairro?: SortOrder
+    zona?: SortOrder
+    cnpj?: SortOrder
     plan?: SortOrder
   }
 
@@ -12107,6 +12245,10 @@ export namespace Prisma {
     segmentSlug?: SortOrder
     citySlug?: SortOrder
     targetAudience?: SortOrder
+    cep?: SortOrder
+    bairro?: SortOrder
+    zona?: SortOrder
+    cnpj?: SortOrder
     plan?: SortOrder
   }
 
@@ -12470,6 +12612,7 @@ export namespace Prisma {
     name?: SortOrder
     rating?: SortOrder
     reviewCount?: SortOrder
+    confirmed?: SortOrder
     syncedAt?: SortOrder
   }
 
@@ -12485,6 +12628,7 @@ export namespace Prisma {
     name?: SortOrder
     rating?: SortOrder
     reviewCount?: SortOrder
+    confirmed?: SortOrder
     syncedAt?: SortOrder
   }
 
@@ -12495,6 +12639,7 @@ export namespace Prisma {
     name?: SortOrder
     rating?: SortOrder
     reviewCount?: SortOrder
+    confirmed?: SortOrder
     syncedAt?: SortOrder
   }
 
@@ -13277,6 +13422,7 @@ export namespace Prisma {
     name: string
     rating?: number | null
     reviewCount?: number | null
+    confirmed?: boolean
     syncedAt?: Date | string
     reviews?: BusinessReviewCreateNestedManyWithoutProfileInput
   }
@@ -13287,6 +13433,7 @@ export namespace Prisma {
     name: string
     rating?: number | null
     reviewCount?: number | null
+    confirmed?: boolean
     syncedAt?: Date | string
     reviews?: BusinessReviewUncheckedCreateNestedManyWithoutProfileInput
   }
@@ -13405,6 +13552,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     rating?: NullableFloatFieldUpdateOperationsInput | number | null
     reviewCount?: NullableIntFieldUpdateOperationsInput | number | null
+    confirmed?: BoolFieldUpdateOperationsInput | boolean
     syncedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     reviews?: BusinessReviewUpdateManyWithoutProfileNestedInput
   }
@@ -13415,6 +13563,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     rating?: NullableFloatFieldUpdateOperationsInput | number | null
     reviewCount?: NullableIntFieldUpdateOperationsInput | number | null
+    confirmed?: BoolFieldUpdateOperationsInput | boolean
     syncedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     reviews?: BusinessReviewUncheckedUpdateManyWithoutProfileNestedInput
   }
@@ -13431,6 +13580,10 @@ export namespace Prisma {
     segmentSlug?: string | null
     citySlug?: string | null
     targetAudience?: string | null
+    cep?: string | null
+    bairro?: string | null
+    zona?: string | null
+    cnpj?: string | null
     plan?: $Enums.Plan
     accounts?: AccountCreateNestedManyWithoutUserInput
     insights?: AIInsightCreateNestedManyWithoutUserInput
@@ -13449,6 +13602,10 @@ export namespace Prisma {
     segmentSlug?: string | null
     citySlug?: string | null
     targetAudience?: string | null
+    cep?: string | null
+    bairro?: string | null
+    zona?: string | null
+    cnpj?: string | null
     plan?: $Enums.Plan
     accounts?: AccountUncheckedCreateNestedManyWithoutUserInput
     insights?: AIInsightUncheckedCreateNestedManyWithoutUserInput
@@ -13483,6 +13640,10 @@ export namespace Prisma {
     segmentSlug?: NullableStringFieldUpdateOperationsInput | string | null
     citySlug?: NullableStringFieldUpdateOperationsInput | string | null
     targetAudience?: NullableStringFieldUpdateOperationsInput | string | null
+    cep?: NullableStringFieldUpdateOperationsInput | string | null
+    bairro?: NullableStringFieldUpdateOperationsInput | string | null
+    zona?: NullableStringFieldUpdateOperationsInput | string | null
+    cnpj?: NullableStringFieldUpdateOperationsInput | string | null
     plan?: EnumPlanFieldUpdateOperationsInput | $Enums.Plan
     accounts?: AccountUpdateManyWithoutUserNestedInput
     insights?: AIInsightUpdateManyWithoutUserNestedInput
@@ -13501,6 +13662,10 @@ export namespace Prisma {
     segmentSlug?: NullableStringFieldUpdateOperationsInput | string | null
     citySlug?: NullableStringFieldUpdateOperationsInput | string | null
     targetAudience?: NullableStringFieldUpdateOperationsInput | string | null
+    cep?: NullableStringFieldUpdateOperationsInput | string | null
+    bairro?: NullableStringFieldUpdateOperationsInput | string | null
+    zona?: NullableStringFieldUpdateOperationsInput | string | null
+    cnpj?: NullableStringFieldUpdateOperationsInput | string | null
     plan?: EnumPlanFieldUpdateOperationsInput | $Enums.Plan
     accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput
     insights?: AIInsightUncheckedUpdateManyWithoutUserNestedInput
@@ -13519,6 +13684,10 @@ export namespace Prisma {
     segmentSlug?: string | null
     citySlug?: string | null
     targetAudience?: string | null
+    cep?: string | null
+    bairro?: string | null
+    zona?: string | null
+    cnpj?: string | null
     plan?: $Enums.Plan
     sessions?: SessionCreateNestedManyWithoutUserInput
     insights?: AIInsightCreateNestedManyWithoutUserInput
@@ -13537,6 +13706,10 @@ export namespace Prisma {
     segmentSlug?: string | null
     citySlug?: string | null
     targetAudience?: string | null
+    cep?: string | null
+    bairro?: string | null
+    zona?: string | null
+    cnpj?: string | null
     plan?: $Enums.Plan
     sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
     insights?: AIInsightUncheckedCreateNestedManyWithoutUserInput
@@ -13571,6 +13744,10 @@ export namespace Prisma {
     segmentSlug?: NullableStringFieldUpdateOperationsInput | string | null
     citySlug?: NullableStringFieldUpdateOperationsInput | string | null
     targetAudience?: NullableStringFieldUpdateOperationsInput | string | null
+    cep?: NullableStringFieldUpdateOperationsInput | string | null
+    bairro?: NullableStringFieldUpdateOperationsInput | string | null
+    zona?: NullableStringFieldUpdateOperationsInput | string | null
+    cnpj?: NullableStringFieldUpdateOperationsInput | string | null
     plan?: EnumPlanFieldUpdateOperationsInput | $Enums.Plan
     sessions?: SessionUpdateManyWithoutUserNestedInput
     insights?: AIInsightUpdateManyWithoutUserNestedInput
@@ -13589,6 +13766,10 @@ export namespace Prisma {
     segmentSlug?: NullableStringFieldUpdateOperationsInput | string | null
     citySlug?: NullableStringFieldUpdateOperationsInput | string | null
     targetAudience?: NullableStringFieldUpdateOperationsInput | string | null
+    cep?: NullableStringFieldUpdateOperationsInput | string | null
+    bairro?: NullableStringFieldUpdateOperationsInput | string | null
+    zona?: NullableStringFieldUpdateOperationsInput | string | null
+    cnpj?: NullableStringFieldUpdateOperationsInput | string | null
     plan?: EnumPlanFieldUpdateOperationsInput | $Enums.Plan
     sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
     insights?: AIInsightUncheckedUpdateManyWithoutUserNestedInput
@@ -13607,6 +13788,10 @@ export namespace Prisma {
     segmentSlug?: string | null
     citySlug?: string | null
     targetAudience?: string | null
+    cep?: string | null
+    bairro?: string | null
+    zona?: string | null
+    cnpj?: string | null
     plan?: $Enums.Plan
     sessions?: SessionCreateNestedManyWithoutUserInput
     accounts?: AccountCreateNestedManyWithoutUserInput
@@ -13625,6 +13810,10 @@ export namespace Prisma {
     segmentSlug?: string | null
     citySlug?: string | null
     targetAudience?: string | null
+    cep?: string | null
+    bairro?: string | null
+    zona?: string | null
+    cnpj?: string | null
     plan?: $Enums.Plan
     sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
     accounts?: AccountUncheckedCreateNestedManyWithoutUserInput
@@ -13659,6 +13848,10 @@ export namespace Prisma {
     segmentSlug?: NullableStringFieldUpdateOperationsInput | string | null
     citySlug?: NullableStringFieldUpdateOperationsInput | string | null
     targetAudience?: NullableStringFieldUpdateOperationsInput | string | null
+    cep?: NullableStringFieldUpdateOperationsInput | string | null
+    bairro?: NullableStringFieldUpdateOperationsInput | string | null
+    zona?: NullableStringFieldUpdateOperationsInput | string | null
+    cnpj?: NullableStringFieldUpdateOperationsInput | string | null
     plan?: EnumPlanFieldUpdateOperationsInput | $Enums.Plan
     sessions?: SessionUpdateManyWithoutUserNestedInput
     accounts?: AccountUpdateManyWithoutUserNestedInput
@@ -13677,6 +13870,10 @@ export namespace Prisma {
     segmentSlug?: NullableStringFieldUpdateOperationsInput | string | null
     citySlug?: NullableStringFieldUpdateOperationsInput | string | null
     targetAudience?: NullableStringFieldUpdateOperationsInput | string | null
+    cep?: NullableStringFieldUpdateOperationsInput | string | null
+    bairro?: NullableStringFieldUpdateOperationsInput | string | null
+    zona?: NullableStringFieldUpdateOperationsInput | string | null
+    cnpj?: NullableStringFieldUpdateOperationsInput | string | null
     plan?: EnumPlanFieldUpdateOperationsInput | $Enums.Plan
     sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
     accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput
@@ -13695,6 +13892,10 @@ export namespace Prisma {
     segmentSlug?: string | null
     citySlug?: string | null
     targetAudience?: string | null
+    cep?: string | null
+    bairro?: string | null
+    zona?: string | null
+    cnpj?: string | null
     plan?: $Enums.Plan
     sessions?: SessionCreateNestedManyWithoutUserInput
     accounts?: AccountCreateNestedManyWithoutUserInput
@@ -13713,6 +13914,10 @@ export namespace Prisma {
     segmentSlug?: string | null
     citySlug?: string | null
     targetAudience?: string | null
+    cep?: string | null
+    bairro?: string | null
+    zona?: string | null
+    cnpj?: string | null
     plan?: $Enums.Plan
     sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
     accounts?: AccountUncheckedCreateNestedManyWithoutUserInput
@@ -13773,6 +13978,10 @@ export namespace Prisma {
     segmentSlug?: NullableStringFieldUpdateOperationsInput | string | null
     citySlug?: NullableStringFieldUpdateOperationsInput | string | null
     targetAudience?: NullableStringFieldUpdateOperationsInput | string | null
+    cep?: NullableStringFieldUpdateOperationsInput | string | null
+    bairro?: NullableStringFieldUpdateOperationsInput | string | null
+    zona?: NullableStringFieldUpdateOperationsInput | string | null
+    cnpj?: NullableStringFieldUpdateOperationsInput | string | null
     plan?: EnumPlanFieldUpdateOperationsInput | $Enums.Plan
     sessions?: SessionUpdateManyWithoutUserNestedInput
     accounts?: AccountUpdateManyWithoutUserNestedInput
@@ -13791,6 +14000,10 @@ export namespace Prisma {
     segmentSlug?: NullableStringFieldUpdateOperationsInput | string | null
     citySlug?: NullableStringFieldUpdateOperationsInput | string | null
     targetAudience?: NullableStringFieldUpdateOperationsInput | string | null
+    cep?: NullableStringFieldUpdateOperationsInput | string | null
+    bairro?: NullableStringFieldUpdateOperationsInput | string | null
+    zona?: NullableStringFieldUpdateOperationsInput | string | null
+    cnpj?: NullableStringFieldUpdateOperationsInput | string | null
     plan?: EnumPlanFieldUpdateOperationsInput | $Enums.Plan
     sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
     accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput
@@ -13831,6 +14044,7 @@ export namespace Prisma {
     name: string
     rating?: number | null
     reviewCount?: number | null
+    confirmed?: boolean
     syncedAt?: Date | string
     user: UserCreateNestedOneWithoutBusinessProfileInput
   }
@@ -13842,6 +14056,7 @@ export namespace Prisma {
     name: string
     rating?: number | null
     reviewCount?: number | null
+    confirmed?: boolean
     syncedAt?: Date | string
   }
 
@@ -13867,6 +14082,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     rating?: NullableFloatFieldUpdateOperationsInput | number | null
     reviewCount?: NullableIntFieldUpdateOperationsInput | number | null
+    confirmed?: BoolFieldUpdateOperationsInput | boolean
     syncedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     user?: UserUpdateOneRequiredWithoutBusinessProfileNestedInput
   }
@@ -13878,6 +14094,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     rating?: NullableFloatFieldUpdateOperationsInput | number | null
     reviewCount?: NullableIntFieldUpdateOperationsInput | number | null
+    confirmed?: BoolFieldUpdateOperationsInput | boolean
     syncedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 

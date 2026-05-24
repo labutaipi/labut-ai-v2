@@ -25,6 +25,10 @@ model User {
   segmentSlug    String? // "salao-beleza" | "alimentacao" | ...
   citySlug       String? // "teresina" | "parnaiba" | ...
   targetAudience String? // "mulheres-adultas" | "familias" | "jovens" | "homens-adultos" | "todos"
+  cep            String?
+  bairro         String?
+  zona           String? // "Norte" | "Sul" | "Leste" | "Sudeste" | "Centro"
+  cnpj           String?
   plan           Plan    @default(FREE)
 
   sessions        Session[]
@@ -132,6 +136,7 @@ model BusinessProfile {
   name        String
   rating      Float?
   reviewCount Int?
+  confirmed   Boolean          @default(false)
   syncedAt    DateTime         @default(now())
   reviews     BusinessReview[]
 }

@@ -132,6 +132,10 @@ exports.Prisma.UserScalarFieldEnum = {
   segmentSlug: 'segmentSlug',
   citySlug: 'citySlug',
   targetAudience: 'targetAudience',
+  cep: 'cep',
+  bairro: 'bairro',
+  zona: 'zona',
+  cnpj: 'cnpj',
   plan: 'plan'
 };
 
@@ -197,6 +201,7 @@ exports.Prisma.BusinessProfileScalarFieldEnum = {
   name: 'name',
   rating: 'rating',
   reviewCount: 'reviewCount',
+  confirmed: 'confirmed',
   syncedAt: 'syncedAt'
 };
 

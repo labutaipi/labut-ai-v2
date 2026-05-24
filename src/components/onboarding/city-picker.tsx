@@ -1,5 +1,5 @@
 "use client"
-import { PIAUI_CITIES, type CitySlug } from '@/lib/cities'
+import { ACTIVE_CITIES, type CitySlug } from '@/lib/cities'
 import { cn } from '@/lib/utils'
 
 interface CityPickerProps {
@@ -10,7 +10,7 @@ interface CityPickerProps {
 export default function CityPicker({ selected, onSelect }: CityPickerProps) {
   return (
     <div className="grid grid-cols-2 gap-2 sm:grid-cols-3">
-      {PIAUI_CITIES.map((city) => {
+      {ACTIVE_CITIES.map((city) => {
         const isSelected = selected === city.slug
         return (
           <button

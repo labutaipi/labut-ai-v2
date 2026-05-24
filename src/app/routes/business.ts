@@ -15,14 +15,31 @@ export const businessRouter = {
   sync: protectedProcedure.input(z.object({})).handler(async ({ context }) => {
     const user = await prisma.user.findUnique({
       where: { id: context.userId },
-      select: { businessName: true, citySlug: true },
+      select: { businessName: true, bairro: true, zona: true },
     })
 
     if (!user?.businessName) {
       throw new ORPCError('BAD_REQUEST', { message: 'Informe o nome do negócio no perfil.' })
     }
 
-    const query = `${user.businessName} Teresina PI`
+    const location = [user.bairro, user.zona, 'Teresina', 'PI'].filter(Boolean).join(', ')
+    const query = `${user.businessName}, ${location}`
     return fetchBusinessProfile(context.userId, query, true)
+  }),
+
+  confirm: protectedProcedure.input(z.object({})).handler(async ({ context }) => {
+    const profile = await prisma.businessProfile.findUnique({
+      where: { userId: context.userId },
+    })
+    if (!profile) throw new ORPCError('NOT_FOUND', { message: 'Perfil não encontrado.' })
+    return prisma.businessProfile.update({
+      where: { userId: context.userId },
+      data: { confirmed: true },
+    })
+  }),
+
+  reject: protectedProcedure.input(z.object({})).handler(async ({ context }) => {
+    await prisma.businessProfile.delete({ where: { userId: context.userId } })
+    return { success: true }
   }),
 }

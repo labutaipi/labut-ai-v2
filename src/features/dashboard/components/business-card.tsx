@@ -8,7 +8,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { useBusinessProfile, useSyncBusiness } from "@/hooks/use-business";
+import { useBusinessProfile, useSyncBusiness, useConfirmBusiness, useRejectBusiness } from "@/hooks/use-business";
 import { formatDistanceToNow } from "../lib/format-distance";
 
 function StarRating({ rating }: { rating: number }) {
@@ -38,6 +38,8 @@ export default function BusinessCard({
 }) {
   const { data: profile, isLoading } = useBusinessProfile();
   const sync = useSyncBusiness();
+  const confirm = useConfirmBusiness();
+  const reject = useRejectBusiness();
 
   if (!businessName) {
     return (
@@ -96,6 +98,37 @@ export default function BusinessCard({
           </div>
         ) : (
           <div className="space-y-4">
+            {/* Banner de confirmação — só exibe enquanto não confirmado */}
+            {!profile.confirmed && (
+              <div className="rounded-xl border border-amber-200 bg-amber-50 px-4 py-3 dark:border-amber-800 dark:bg-amber-950/40">
+                <p className="mb-2 text-sm font-medium text-amber-800 dark:text-amber-300">
+                  Este é o seu negócio?
+                </p>
+                <p className="mb-3 text-xs text-amber-700 dark:text-amber-400">
+                  Encontramos <strong>{profile.name}</strong> no Google Maps. Confirme para ver os dados completos.
+                </p>
+                <div className="flex gap-2">
+                  <Button
+                    size="sm"
+                    onClick={() => confirm.mutate()}
+                    disabled={confirm.isPending || reject.isPending}
+                    className="rounded-lg text-xs"
+                  >
+                    {confirm.isPending ? "Confirmando..." : "Sim, é meu negócio"}
+                  </Button>
+                  <Button
+                    size="sm"
+                    variant="outline"
+                    onClick={() => reject.mutate()}
+                    disabled={confirm.isPending || reject.isPending}
+                    className="rounded-lg text-xs"
+                  >
+                    Não é meu negócio
+                  </Button>
+                </div>
+              </div>
+            )}
+
             <div className="flex items-center justify-between rounded-xl bg-white/40 px-4 py-3 dark:bg-white/5">
               <span className="text-sm font-medium text-(--sea-ink)">
                 {profile.name}

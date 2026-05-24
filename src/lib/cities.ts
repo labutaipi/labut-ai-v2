@@ -1,3 +1,7 @@
+export const ACTIVE_CITIES = [
+  { slug: 'teresina', label: 'Teresina', geoCode: 'BR-PI-TEI' },
+] as const
+
 export const PIAUI_CITIES = [
   { slug: 'teresina', label: 'Teresina', geoCode: 'BR-PI-TEI' },
   { slug: 'parnaiba', label: 'Parnaíba', geoCode: 'BR-PI' },

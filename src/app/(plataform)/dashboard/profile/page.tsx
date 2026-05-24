@@ -11,19 +11,30 @@ import { authClient } from '@/lib/auth-client'
 import { getCityBySlug } from '@/lib/cities'
 import { getSegmentBySlug } from '@/lib/segments'
 import { useUpdateUser, useUser } from '@/hooks/use-user'
+import { Alert, AlertDescription } from '@/components/ui/alert'
 
 export default function PerfilPage() {
   const router = useRouter()
-  const { data: user, isLoading } = useUser()
+  const { data: user, isLoading, isError } = useUser()
   const updateUser = useUpdateUser()
 
   const [name, setName] = useState<string>()
   const [businessName, setBusinessName] = useState<string>()
 
-  if (isLoading || !user) {
+  if (isLoading) {
     return (
       <div className="page-wrap px-4 pt-8">
         <div className="h-48 animate-pulse rounded-2xl bg-(--line)" />
+      </div>
+    )
+  }
+
+  if (isError || !user) {
+    return (
+      <div className="page-wrap px-4 pt-8">
+        <Alert variant="destructive">
+          <AlertDescription>Erro ao carregar perfil. Recarregue a página.</AlertDescription>
+        </Alert>
       </div>
     )
   }
@@ -105,6 +116,11 @@ export default function PerfilPage() {
                   </span>
                 )}
               </div>
+              {updateUser.isError && (
+                <Alert variant="destructive" className="mt-2">
+                  <AlertDescription>Erro ao salvar. Tente novamente.</AlertDescription>
+                </Alert>
+              )}
             </form>
           </CardContent>
         </Card>

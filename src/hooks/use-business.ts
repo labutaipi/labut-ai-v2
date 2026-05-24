@@ -16,3 +16,23 @@ export function useSyncBusiness() {
     },
   })
 }
+
+export function useConfirmBusiness() {
+  const queryClient = useQueryClient()
+  return useMutation({
+    mutationFn: () => client.business.confirm({}),
+    onSuccess: () => {
+      queryClient.invalidateQueries(orpc.business.profile.queryOptions({ input: {} }))
+    },
+  })
+}
+
+export function useRejectBusiness() {
+  const queryClient = useQueryClient()
+  return useMutation({
+    mutationFn: () => client.business.reject({}),
+    onSuccess: () => {
+      queryClient.invalidateQueries(orpc.business.profile.queryOptions({ input: {} }))
+    },
+  })
+}
