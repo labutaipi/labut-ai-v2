@@ -1,5 +1,5 @@
 import crypto from 'crypto'
-import { generateText, Output } from 'ai'
+import { generateText, tool } from 'ai'
 import { z } from 'zod'
 import { groq, AI_MODEL } from './client'
 
@@ -35,9 +35,15 @@ export async function generateInsights(input: InsightInput): Promise<InsightCont
     input.trend === 'up' ? 'crescente' : input.trend === 'down' ? 'decrescente' : 'estável'
   const queries = input.risingQueries.slice(0, 5).join(', ') || 'nenhuma'
 
-  const { output } = await generateText({
+  const { staticToolCalls } = await generateText({
     model: groq(AI_MODEL),
-    output: Output.object({ schema: insightSchema }),
+    tools: {
+      insight: tool({
+        description: 'Gera insights de mercado para um negócio local com base em dados de tendências de busca',
+        inputSchema: insightSchema,
+      }),
+    },
+    toolChoice: { type: 'tool', toolName: 'insight' },
     prompt: `Você é um analista de mercado local brasileiro. Analise os dados abaixo e gere insights práticos para o negócio.
 
 Negócio: ${input.businessName ?? 'Não informado'}
@@ -48,5 +54,7 @@ Tendência de busca: ${trendLabel} (pico ${input.peak}, média ${input.avg})
 Termos em alta: ${queries}`,
   })
 
-  return output
+  const result = staticToolCalls[0]?.input
+  if (!result) throw new Error('Nenhum insight retornado pelo modelo')
+  return result
 }

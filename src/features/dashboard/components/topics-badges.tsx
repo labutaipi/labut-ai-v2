@@ -25,7 +25,7 @@ export default function TopicsBadges({ data }: TopicsBadgesProps) {
       {combined.map((t, i) => {
         const title = t.topic?.title
         if (!title) return null
-        const isBreakout = t.value === 'Breakout' || t.value === '+1000%'
+        const isBreakout = t.value === 'Breakout' || t.value === '+1000%' || t.value === 'Aumento repentino'
         return (
           <Badge
             key={i}

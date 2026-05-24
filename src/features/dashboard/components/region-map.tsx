@@ -1,7 +1,6 @@
 interface RegionEntry {
-  geo?: string;
   location?: string;
-  values?: Array<{ extracted_value?: number }>;
+  values?: Array<{ query?: string; extracted_value?: number }>;
 }
 
 interface RegionMapProps {
@@ -13,10 +12,8 @@ export default function RegionMap({ data }: RegionMapProps) {
 
   const top = regions
     .map((region) => ({
-      location: region.location ?? region.geo ?? "Desconhecido",
-      value: Math.max(
-        ...(region.values?.map((v) => v.extracted_value ?? 0) ?? [0]),
-      ),
+      location: region.location ?? "Desconhecido",
+      value: Math.max(...(region.values?.map((v) => v.extracted_value ?? 0) ?? [0])),
     }))
     .sort((a, b) => b.value - a.value)
     .slice(0, 8);

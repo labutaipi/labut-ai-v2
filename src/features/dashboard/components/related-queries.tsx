@@ -21,7 +21,7 @@ export default function RelatedQueries({ queries }: RelatedQueriesProps) {
           <span className="text-sm font-medium text-[var(--sea-ink)]">{q.query}</span>
           {q.value && (
             <Badge variant="lagoon" className="ml-3 shrink-0">
-              {q.value === 'Breakout' ? '🔥 Explosão' : `+${q.value}%`}
+              {q.value === 'Breakout' || q.value === 'Aumento repentino' ? '🔥 Explosão' : `+${q.value}%`}
             </Badge>
           )}
         </li>
