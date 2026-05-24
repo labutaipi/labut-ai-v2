@@ -1,5 +1,5 @@
 "use client";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Area,
   AreaChart,
@@ -7,7 +7,6 @@ import {
   XAxis,
   YAxis,
 } from "recharts";
-import type { TooltipProps, LegendProps } from "recharts";
 import {
   ChartContainer,
   ChartTooltip,
@@ -119,12 +118,19 @@ export default function TrendChart({ data, keywords }: TrendChartProps) {
         />
         <ChartTooltip
           cursor={{ stroke: "rgba(23,58,64,0.15)", strokeWidth: 1 }}
-          content={(props: TooltipProps<number, string>) => (
-            <ChartTooltipContent {...props} indicator="line" />
+          content={(props) => (
+            <ChartTooltipContent
+              {...(props as React.ComponentProps<typeof ChartTooltipContent>)}
+              indicator="line"
+            />
           )}
         />
         <ChartLegend
-          content={(props: LegendProps) => <ChartLegendContent {...props} />}
+          content={(props) => (
+            <ChartLegendContent
+              {...(props as React.ComponentProps<typeof ChartLegendContent>)}
+            />
+          )}
         />
         {visibleKeywords.map((keyWorld, i) => (
           <Area

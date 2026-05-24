@@ -1,3 +1,4 @@
+
 generator client {
   provider = "prisma-client-js"
   output   = "../src/generated/prisma"
@@ -31,6 +32,8 @@ model User {
   accounts        Account[]
   insights        AIInsight[]
   businessProfile BusinessProfile?
+
+  @@map("user")
 }
 
 model Session {
@@ -44,6 +47,9 @@ model Session {
   updatedAt DateTime @updatedAt
 
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@map("session")
 }
 
 model Account {
@@ -62,7 +68,11 @@ model Account {
 
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 
+  refreshTokenExpiresAt DateTime?
+
   @@unique([providerId, accountId])
+  @@index([userId])
+  @@map("account")
 }
 
 model Verification {
@@ -72,6 +82,9 @@ model Verification {
   expiresAt  DateTime
   createdAt  DateTime @default(now())
   updatedAt  DateTime @updatedAt
+
+  @@index([identifier])
+  @@map("verification")
 }
 
 // ─────────────────────────────────────────
@@ -101,8 +114,8 @@ model AIInsight {
   id          String   @id @default(cuid())
   userId      String
   user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-  content     String   // JSON serializado: { emAlta, oportunidade, acao }
-  dataHash    String   // hash dos dados de entrada (evita regenerar sem mudança)
+  content     String // JSON serializado: { emAlta, oportunidade, acao }
+  dataHash    String // hash dos dados de entrada (evita regenerar sem mudança)
   generatedAt DateTime @default(now())
 
   @@index([userId])
@@ -113,14 +126,14 @@ model AIInsight {
 // ─────────────────────────────────────────
 
 model BusinessProfile {
-  id          String          @id @default(cuid())
-  userId      String          @unique
-  user        User            @relation(fields: [userId], references: [id], onDelete: Cascade)
+  id          String           @id @default(cuid())
+  userId      String           @unique
+  user        User             @relation(fields: [userId], references: [id], onDelete: Cascade)
   placeId     String?
   name        String
   rating      Float?
   reviewCount Int?
-  syncedAt    DateTime        @default(now())
+  syncedAt    DateTime         @default(now())
   reviews     BusinessReview[]
 }
 

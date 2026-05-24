@@ -105,10 +105,10 @@ const ChartTooltip = RechartsPrimitive.Tooltip
 // recharts v3 passes these as render-prop arguments, not as component props
 type TooltipRenderProps = {
   active?: boolean
-  payload?: Array<{
+  payload?: ReadonlyArray<{
     name?: string | number
     dataKey?: string | number
-    value?: number | string | number[]   // recharts v3 Area can pass [base, top]
+    value?: number | string | number[]
     color?: string
     fill?: string
     payload?: Record<string, unknown>
@@ -123,7 +123,7 @@ type ChartTooltipContentProps = TooltipRenderProps &
     indicator?: 'line' | 'dot' | 'dashed'
     nameKey?: string
     labelKey?: string
-    labelFormatter?: (value: unknown, payload: unknown[]) => React.ReactNode
+    labelFormatter?: (value: unknown, payload: ReadonlyArray<unknown>) => React.ReactNode
     labelClassName?: string
     formatter?: (
       value: unknown,
@@ -274,7 +274,7 @@ const ChartLegend = RechartsPrimitive.Legend
 
 // recharts v3 LegendProps doesn't expose payload/verticalAlign the same way
 type LegendRenderProps = {
-  payload?: Array<{
+  payload?: ReadonlyArray<{
     value?: string | number
     dataKey?: string | number
     color?: string
