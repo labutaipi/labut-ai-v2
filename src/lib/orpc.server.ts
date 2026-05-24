@@ -2,7 +2,7 @@ import 'server-only'
 import { headers } from 'next/headers'
 import { createRouterClient } from '@orpc/server'
 import type { RouterClient } from '@orpc/server'
-import { appRouter } from '@/server/routers'
+import { appRouter } from '@/app/routes'
 
 declare global {
   var $client: RouterClient<typeof appRouter> | undefined

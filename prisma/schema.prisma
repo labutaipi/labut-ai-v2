@@ -21,13 +21,16 @@ model User {
   updatedAt     DateTime @updatedAt
 
   // Dados do negócio do MEI
-  businessName String?
-  segmentSlug  String? // "salao-beleza" | "alimentacao" | ...
-  citySlug     String? // "teresina" | "parnaiba" | ...
-  plan         Plan    @default(FREE)
+  businessName   String?
+  segmentSlug    String? // "salao-beleza" | "alimentacao" | ...
+  citySlug       String? // "teresina" | "parnaiba" | ...
+  targetAudience String? // "mulheres-adultas" | "familias" | "jovens" | "homens-adultos" | "todos"
+  plan           Plan    @default(FREE)
 
-  sessions Session[]
-  accounts Account[]
+  sessions        Session[]
+  accounts        Account[]
+  insights        AIInsight[]
+  businessProfile BusinessProfile?
 }
 
 model Session {
@@ -88,6 +91,49 @@ model SegmentTrendsCache {
   expiresAt   DateTime // TTL: 12 horas
 
   @@unique([segmentSlug, citySlug, dataType])
+}
+
+// ─────────────────────────────────────────
+// INSIGHTS GERADOS POR IA
+// ─────────────────────────────────────────
+
+model AIInsight {
+  id          String   @id @default(cuid())
+  userId      String
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  content     String   // JSON serializado: { emAlta, oportunidade, acao }
+  dataHash    String   // hash dos dados de entrada (evita regenerar sem mudança)
+  generatedAt DateTime @default(now())
+
+  @@index([userId])
+}
+
+// ─────────────────────────────────────────
+// GOOGLE BUSINESS PROFILE (via SerpAPI)
+// ─────────────────────────────────────────
+
+model BusinessProfile {
+  id          String          @id @default(cuid())
+  userId      String          @unique
+  user        User            @relation(fields: [userId], references: [id], onDelete: Cascade)
+  placeId     String?
+  name        String
+  rating      Float?
+  reviewCount Int?
+  syncedAt    DateTime        @default(now())
+  reviews     BusinessReview[]
+}
+
+model BusinessReview {
+  id          String          @id @default(cuid())
+  profileId   String
+  profile     BusinessProfile @relation(fields: [profileId], references: [id], onDelete: Cascade)
+  author      String
+  rating      Int
+  comment     String?
+  publishedAt DateTime
+
+  @@index([profileId])
 }
 
 // ─────────────────────────────────────────
