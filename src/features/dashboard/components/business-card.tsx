@@ -24,7 +24,7 @@ function StarRating({ rating }: { rating: number }) {
           ★
         </span>
       ))}
-      <span className="ml-1 text-sm font-semibold text-[var(--sea-ink)]">
+      <span className="ml-1 text-sm font-semibold text-(--sea-ink)">
         {rating.toFixed(1)}
       </span>
     </div>
@@ -51,7 +51,7 @@ export default function BusinessCard({
         <CardContent className="px-6 pb-6 pt-4">
           <div className="flex flex-col items-center gap-3 py-6 text-center">
             <span className="text-3xl">🗺️</span>
-            <p className="text-sm text-[var(--sea-ink-soft)]">
+            <p className="text-sm text-(--sea-ink-soft)">
               Informe o nome do seu negócio no perfil para ver seus dados no
               Google Maps.
             </p>
@@ -86,32 +86,32 @@ export default function BusinessCard({
       </CardHeader>
       <CardContent className="px-6 pb-6 pt-4">
         {isLoading ? (
-          <div className="h-24 animate-pulse rounded-xl bg-[var(--line)]" />
+          <div className="h-24 animate-pulse rounded-xl bg-(--line)" />
         ) : !profile ? (
           <div className="flex flex-col items-center gap-3 py-6 text-center">
             <span className="text-3xl">🔍</span>
-            <p className="text-sm text-[var(--sea-ink-soft)]">
+            <p className="text-sm text-(--sea-ink-soft)">
               Clique em "Sincronizar" para buscar seu negócio no Google Maps.
             </p>
           </div>
         ) : (
           <div className="space-y-4">
             <div className="flex items-center justify-between rounded-xl bg-white/40 px-4 py-3 dark:bg-white/5">
-              <span className="text-sm font-medium text-[var(--sea-ink)]">
+              <span className="text-sm font-medium text-(--sea-ink)">
                 {profile.name}
               </span>
               {profile.rating && <StarRating rating={profile.rating} />}
             </div>
 
             {profile.reviewCount != null && (
-              <p className="text-xs text-[var(--sea-ink-soft)]">
+              <p className="text-xs text-(--sea-ink-soft)">
                 {profile.reviewCount} avaliações no Google Maps
               </p>
             )}
 
             {profile.reviews.length > 0 && (
               <div className="space-y-2">
-                <p className="text-xs font-semibold uppercase tracking-wide text-[var(--sea-ink-soft)]">
+                <p className="text-xs font-semibold uppercase tracking-wide text-(--sea-ink-soft)">
                   Avaliações recentes
                 </p>
                 {profile.reviews
@@ -122,7 +122,7 @@ export default function BusinessCard({
                       className="rounded-xl bg-white/40 px-4 py-3 dark:bg-white/5"
                     >
                       <div className="mb-1 flex items-center justify-between">
-                        <span className="text-xs font-medium text-[var(--sea-ink)]">
+                        <span className="text-xs font-medium text-(--sea-ink)">
                           {review.author}
                         </span>
                         <div className="flex">
@@ -137,7 +137,7 @@ export default function BusinessCard({
                         </div>
                       </div>
                       {review.comment && (
-                        <p className="line-clamp-2 text-xs text-[var(--sea-ink-soft)]">
+                        <p className="line-clamp-2 text-xs text-(--sea-ink-soft)">
                           {review.comment}
                         </p>
                       )}

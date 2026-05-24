@@ -50,6 +50,7 @@ Termos em alta: ${queries}
 
 Responda com exatamente este JSON (sem mais nada):
 {"emAlta":"...","oportunidade":"...","acao":"..."}`,
+    providerOptions: { groq: { structuredOutputs: false } },
   })
 
   // Extrai JSON mesmo que o modelo adicione markdown ou texto extra
