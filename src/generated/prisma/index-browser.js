@@ -158,7 +158,8 @@ exports.Prisma.AccountScalarFieldEnum = {
   accessTokenExpiresAt: 'accessTokenExpiresAt',
   scope: 'scope',
   createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
+  updatedAt: 'updatedAt',
+  refreshTokenExpiresAt: 'refreshTokenExpiresAt'
 };
 
 exports.Prisma.VerificationScalarFieldEnum = {
