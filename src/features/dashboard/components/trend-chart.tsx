@@ -1,20 +1,6 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import {
-  Area,
-  AreaChart,
-  CartesianGrid,
-  XAxis,
-  YAxis,
-} from "recharts";
-import {
-  ChartContainer,
-  ChartTooltip,
-  ChartTooltipContent,
-  ChartLegend,
-  ChartLegendContent,
-  type ChartConfig,
-} from "@/components/ui/chart";
+import { BarChart, Bar, XAxis, YAxis, Tooltip, Cell, ResponsiveContainer } from "recharts";
 
 type TimelineValue = {
   query?: string;
@@ -36,122 +22,72 @@ const COLORS = ["#328f97", "#16A34A", "#EA580C", "#6B7280", "#DC2626"];
 
 export default function TrendChart({ data, keywords }: TrendChartProps) {
   const [mounted, setMounted] = useState(false);
-  useEffect(() => {
-    setMounted(true);
-  }, []);
+  useEffect(() => { setMounted(true); }, []);
 
   const visibleKeywords = keywords.slice(0, 5);
 
-  const chartConfig = Object.fromEntries(
-    visibleKeywords.map((keyWorld, index) => [
-      keyWorld,
-      { label: keyWorld, color: COLORS[index % COLORS.length] },
-    ]),
-  ) satisfies ChartConfig;
+  const chartData = visibleKeywords
+    .map((keyword, i) => {
+      const values = data.flatMap((entry) =>
+        (entry.values ?? [])
+          .filter((v) => v.query === keyword)
+          .map((v) => v.extracted_value ?? 0),
+      );
+      const avg = values.length
+        ? Math.round(values.reduce((s, v) => s + v, 0) / values.length)
+        : 0;
+      return { keyword, avg, color: COLORS[i % COLORS.length] };
+    })
+    .sort((a, b) => b.avg - a.avg);
 
-  const visibleSet = new Set(visibleKeywords);
-
-  const chartData = data.map((entry) => {
-    const point: Record<string, unknown> = {
-      date: formatDate(entry.date ?? ""),
-    };
-
-    // Initialize all keywords to 0 so absent entries don't show undefined
-    visibleKeywords.forEach((keyWorld) => {
-      point[keyWorld] = 0;
-    });
-
-    // Map by v.query so values are matched to the correct keyword regardless of order
-    entry.values?.forEach((value) => {
-      if (value.query && visibleSet.has(value.query)) {
-        point[value.query] = value.extracted_value ?? 0;
-      }
-    });
-
-    return point;
-  });
-
-  if (!mounted) return <div className="h-56 w-full sm:h-72" />;
+  if (!mounted) return <div className="h-56 w-full sm:h-64" />;
 
   return (
-    <ChartContainer config={chartConfig} className="h-56 w-full sm:h-72">
-      <AreaChart
-        data={chartData}
-        margin={{ top: 4, right: 4, bottom: 0, left: -20 }}
-      >
-        <defs>
-          {visibleKeywords.map((keyWorld, i) => (
-            <linearGradient
-              key={i}
-              id={`gradient-${i}`}
-              x1="0"
-              y1="0"
-              x2="0"
-              y2="1"
-            >
-              <stop
-                offset="5%"
-                stopColor={COLORS[i % COLORS.length]}
-                stopOpacity={i === 0 ? 0.2 : 0.12}
-              />
-              <stop
-                offset="95%"
-                stopColor={COLORS[i % COLORS.length]}
-                stopOpacity={0}
-              />
-            </linearGradient>
-          ))}
-        </defs>
-        <CartesianGrid strokeDasharray="3 3" stroke="rgba(23,58,64,0.08)" />
-        <XAxis
-          dataKey="date"
-          tick={{ fontSize: 11, fill: "#416166" }}
-          tickLine={false}
-          axisLine={false}
-          interval="preserveStartEnd"
-        />
-        <YAxis
-          tick={{ fontSize: 11, fill: "#416166" }}
-          tickLine={false}
-          axisLine={false}
-          domain={[0, 100]}
-        />
-        <ChartTooltip
-          cursor={{ stroke: "rgba(23,58,64,0.15)", strokeWidth: 1 }}
-          content={(props) => (
-            <ChartTooltipContent
-              {...(props as React.ComponentProps<typeof ChartTooltipContent>)}
-              indicator="line"
-            />
-          )}
-        />
-        <ChartLegend
-          content={(props) => (
-            <ChartLegendContent
-              {...(props as React.ComponentProps<typeof ChartLegendContent>)}
-            />
-          )}
-        />
-        {visibleKeywords.map((keyWorld, i) => (
-          <Area
-            key={keyWorld}
-            type="monotone"
-            dataKey={keyWorld}
-            stroke={COLORS[i % COLORS.length]}
-            strokeWidth={2}
-            fill={`url(#gradient-${i})`}
-            dot={false}
-            activeDot={{ r: 4 }}
+    <div className="h-56 w-full sm:h-64">
+      <ResponsiveContainer width="100%" height="100%">
+        <BarChart
+          data={chartData}
+          layout="vertical"
+          margin={{ top: 4, right: 32, bottom: 0, left: 8 }}
+        >
+          <XAxis
+            type="number"
+            domain={[0, 100]}
+            tick={{ fontSize: 11, fill: "#416166" }}
+            tickLine={false}
+            axisLine={false}
           />
-        ))}
-      </AreaChart>
-    </ChartContainer>
+          <YAxis
+            type="category"
+            dataKey="keyword"
+            width={120}
+            tick={{ fontSize: 11, fill: "#416166" }}
+            tickLine={false}
+            axisLine={false}
+          />
+          <Tooltip
+            cursor={{ fill: "rgba(23,58,64,0.06)" }}
+            formatter={(value) => [`${value ?? 0}`, "Média"]}
+            contentStyle={{
+              borderRadius: "10px",
+              border: "none",
+              backgroundColor: "#173a40",
+              color: "#ffffff",
+              fontSize: 13,
+              fontWeight: 500,
+              padding: "8px 14px",
+              boxShadow: "0 4px 16px rgba(0,0,0,0.25)",
+            }}
+            labelStyle={{ color: "#a8d5d9", marginBottom: 2, fontSize: 12 }}
+            itemStyle={{ color: "#ffffff" }}
+          />
+          <Bar dataKey="avg" radius={[0, 6, 6, 0]} maxBarSize={28}>
+            {chartData.map((entry, i) => (
+              <Cell key={i} fill={entry.color} />
+            ))}
+          </Bar>
+        </BarChart>
+      </ResponsiveContainer>
+    </div>
   );
-}
-
-function formatDate(dateStr: string) {
-  if (!dateStr) return "";
-  // Split on em dash or en dash; return full start date to avoid collisions
-  const [start] = dateStr.split(/\s*[–—]\s*/);
-  return start?.trim() ?? dateStr;
 }
