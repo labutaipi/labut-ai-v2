@@ -18,7 +18,7 @@ export default function LandingPage() {
     {
       num: '2',
       title: 'Escolha seu segmento',
-      desc: 'Selecione a área do seu negócio e a sua cidade em Teresina.',
+      desc: 'Selecione a área do seu negócio e a região onde atua em Teresina.',
     },
     {
       num: '3',
