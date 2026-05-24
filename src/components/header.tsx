@@ -32,7 +32,9 @@ export function Header() {
               variant="ghost"
               size="sm"
               asChild
-              data-active={isActive("/dashboard") && !isActive("/dashboard/perfil")}
+              data-active={
+                isActive("/dashboard") && !isActive("/dashboard/profile")
+              }
               className="nav-link font-semibold"
             >
               <Link href="/dashboard">Painel</Link>
@@ -41,10 +43,10 @@ export function Header() {
               variant="ghost"
               size="sm"
               asChild
-              data-active={isActive("/dashboard/perfil")}
+              data-active={isActive("/dashboard/profile")}
               className="nav-link font-semibold"
             >
-              <Link href="/dashboard/perfil">Perfil</Link>
+              <Link href="/dashboard/profile">Perfil</Link>
             </Button>
           </div>
         )}

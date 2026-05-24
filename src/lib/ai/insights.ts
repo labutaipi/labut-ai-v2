@@ -1,5 +1,5 @@
 import crypto from 'crypto'
-import { generateText, Output } from 'ai'
+import { generateText } from 'ai'
 import { z } from 'zod'
 import { groq, AI_MODEL } from './client'
 
@@ -35,18 +35,29 @@ export async function generateInsights(input: InsightInput): Promise<InsightCont
     input.trend === 'up' ? 'crescente' : input.trend === 'down' ? 'decrescente' : 'estável'
   const queries = input.risingQueries.slice(0, 5).join(', ') || 'nenhuma'
 
-  const { output } = await generateText({
+  const { text } = await generateText({
     model: groq(AI_MODEL),
-    output: Output.object({ schema: insightSchema }),
-    prompt: `Você é um analista de mercado local brasileiro. Analise os dados abaixo e gere insights práticos para o negócio.
+    system:
+      'Você é um analista de mercado local brasileiro. Responda SEMPRE e APENAS com um objeto JSON válido, sem markdown, sem texto adicional.',
+    prompt: `Analise os dados abaixo e gere insights práticos para o negócio.
 
 Negócio: ${input.businessName ?? 'Não informado'}
 Segmento: ${input.segmentLabel}
 Cidade: ${input.cityLabel}
 Público-alvo: ${input.audienceLabel}
 Tendência de busca: ${trendLabel} (pico ${input.peak}, média ${input.avg})
-Termos em alta: ${queries}`,
+Termos em alta: ${queries}
+
+Responda com exatamente este JSON (sem mais nada):
+{"emAlta":"...","oportunidade":"...","acao":"..."}`,
   })
 
-  return output
+  // Extrai JSON mesmo que o modelo adicione markdown ou texto extra
+  let jsonText = text.trim()
+  const codeBlock = jsonText.match(/```(?:json)?\s*([\s\S]*?)\s*```/)
+  if (codeBlock) jsonText = codeBlock[1]
+  const jsonMatch = jsonText.match(/\{[\s\S]*\}/)
+  if (!jsonMatch) throw new Error('Modelo não retornou JSON válido')
+
+  return insightSchema.parse(JSON.parse(jsonMatch[0]))
 }

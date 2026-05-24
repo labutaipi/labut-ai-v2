@@ -1,20 +1,30 @@
-'use client'
+"use client";
 
-import { Button } from '@/components/ui/button'
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
-import type { InsightContent } from '@/lib/ai/insights'
-import { useGenerateInsight, useLatestInsight } from '@/hooks/use-insights'
-import { formatDistanceToNow } from './format-distance'
+import { Button } from "@/components/ui/button";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import type { InsightContent } from "@/lib/ai/insights";
+import { useGenerateInsight, useLatestInsight } from "@/hooks/use-insights";
+import { formatDistanceToNow } from "../lib/format-distance";
 
-const INSIGHT_ITEMS: Array<{ key: keyof InsightContent; label: string; icon: string }> = [
-  { key: 'emAlta',       label: 'O que está em alta',      icon: '📈' },
-  { key: 'oportunidade', label: 'Oportunidade detectada',  icon: '💡' },
-  { key: 'acao',         label: 'Ação recomendada',        icon: '🎯' },
-]
+const INSIGHT_ITEMS: Array<{
+  key: keyof InsightContent;
+  label: string;
+  icon: string;
+}> = [
+  { key: "emAlta", label: "O que está em alta", icon: "📈" },
+  { key: "oportunidade", label: "Oportunidade detectada", icon: "💡" },
+  { key: "acao", label: "Ação recomendada", icon: "🎯" },
+];
 
 export default function InsightCard() {
-  const { data: insight, isLoading } = useLatestInsight()
-  const generate = useGenerateInsight()
+  const { data: insight, isLoading } = useLatestInsight();
+  const generate = useGenerateInsight();
 
   return (
     <Card className="gap-0 py-0">
@@ -25,7 +35,7 @@ export default function InsightCard() {
             <CardDescription>
               {insight
                 ? `Atualizado ${formatDistanceToNow(new Date(insight.generatedAt))}`
-                : 'Insights baseados nos seus dados de mercado'}
+                : "Insights baseados nos seus dados de mercado"}
             </CardDescription>
           </div>
           <Button
@@ -35,7 +45,7 @@ export default function InsightCard() {
             disabled={generate.isPending || isLoading}
             className="shrink-0 rounded-xl text-xs"
           >
-            {generate.isPending ? 'Analisando...' : 'Atualizar'}
+            {generate.isPending ? "Analisando..." : "Atualizar"}
           </Button>
         </div>
       </CardHeader>
@@ -43,7 +53,10 @@ export default function InsightCard() {
         {isLoading ? (
           <div className="space-y-3">
             {[1, 2, 3].map((i) => (
-              <div key={i} className="h-16 animate-pulse rounded-xl bg-[var(--line)]" />
+              <div
+                key={i}
+                className="h-16 animate-pulse rounded-xl bg-[var(--line)]"
+              />
             ))}
           </div>
         ) : !insight ? (
@@ -63,12 +76,14 @@ export default function InsightCard() {
                 <p className="mb-1 text-xs font-semibold uppercase tracking-wide text-[var(--sea-ink-soft)]">
                   {icon} {label}
                 </p>
-                <p className="text-sm text-[var(--sea-ink)]">{insight.content[key]}</p>
+                <p className="text-sm text-[var(--sea-ink)]">
+                  {insight.content[key]}
+                </p>
               </div>
             ))}
           </div>
         )}
       </CardContent>
     </Card>
-  )
+  );
 }
