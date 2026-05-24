@@ -19,10 +19,16 @@ export function Header() {
         <h2 className="m-0 shrink-0 text-base font-semibold tracking-tight">
           <Link
             href="/"
-            className="inline-flex items-center gap-2 rounded-full border border-(--chip-line) bg-(--chip-bg) px-3 py-1.5 text-sm text-(--sea-ink) no-underline shadow-[0_8px_24px_rgba(30,90,72,0.08)] sm:px-4 sm:py-2"
+            className="inline-flex items-center gap-2 border border-(--chip-line) bg-(--chip-bg) px-0 py-0 text-sm text-(--sea-ink) no-underline shadow-[0_8px_24px_rgba(30,90,72,0.08)] sm:px-0 sm:py-0"
           >
-            <span className="h-2 w-2 rounded-full bg-[linear-gradient(90deg,#56c6be,#7ed3bf)]" />
-            Labut AI
+            <img 
+              src="LabutAI whitee.png" 
+              alt="Labut AI" 
+              className="h-8 w-auto object-contain max-w-none" 
+              /* - Mudamos de h-12 para h-16 (ou h-20 se quiser ainda maior!).
+                - Adicionamos 'max-w-none' para o Tailwind não tentar esmagar a largura da imagem.
+              */
+            />
           </Link>
         </h2>
 
