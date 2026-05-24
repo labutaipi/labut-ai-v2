@@ -131,6 +131,7 @@ exports.Prisma.UserScalarFieldEnum = {
   businessName: 'businessName',
   segmentSlug: 'segmentSlug',
   citySlug: 'citySlug',
+  targetAudience: 'targetAudience',
   plan: 'plan'
 };
 
@@ -157,7 +158,8 @@ exports.Prisma.AccountScalarFieldEnum = {
   accessTokenExpiresAt: 'accessTokenExpiresAt',
   scope: 'scope',
   createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
+  updatedAt: 'updatedAt',
+  refreshTokenExpiresAt: 'refreshTokenExpiresAt'
 };
 
 exports.Prisma.VerificationScalarFieldEnum = {
@@ -178,6 +180,33 @@ exports.Prisma.SegmentTrendsCacheScalarFieldEnum = {
   payload: 'payload',
   fetchedAt: 'fetchedAt',
   expiresAt: 'expiresAt'
+};
+
+exports.Prisma.AIInsightScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  content: 'content',
+  dataHash: 'dataHash',
+  generatedAt: 'generatedAt'
+};
+
+exports.Prisma.BusinessProfileScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  placeId: 'placeId',
+  name: 'name',
+  rating: 'rating',
+  reviewCount: 'reviewCount',
+  syncedAt: 'syncedAt'
+};
+
+exports.Prisma.BusinessReviewScalarFieldEnum = {
+  id: 'id',
+  profileId: 'profileId',
+  author: 'author',
+  rating: 'rating',
+  comment: 'comment',
+  publishedAt: 'publishedAt'
 };
 
 exports.Prisma.SortOrder = {
@@ -214,7 +243,10 @@ exports.Prisma.ModelName = {
   Session: 'Session',
   Account: 'Account',
   Verification: 'Verification',
-  SegmentTrendsCache: 'SegmentTrendsCache'
+  SegmentTrendsCache: 'SegmentTrendsCache',
+  AIInsight: 'AIInsight',
+  BusinessProfile: 'BusinessProfile',
+  BusinessReview: 'BusinessReview'
 };
 
 /**

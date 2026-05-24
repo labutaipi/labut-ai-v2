@@ -1,17 +1,17 @@
-'use client'
+"use client";
 
-import Link from 'next/link'
-import { usePathname } from 'next/navigation'
-import { authClient } from '@/lib/auth-client'
-import { Button } from '@/components/ui/button'
-import { ThemeToggle } from './theme-toggle'
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+import { authClient } from "@/lib/auth-client";
+import { Button } from "@/components/ui/button";
+import { ThemeToggle } from "./theme-toggle";
 
 export function Header() {
-  const { data: session } = authClient.useSession()
-  const pathname = usePathname()
+  const { data: session } = authClient.useSession();
+  const pathname = usePathname();
 
   const isActive = (path: string) =>
-    pathname === path || pathname.startsWith(path + '/')
+    pathname === path || pathname.startsWith(path + "/");
 
   return (
     <header className="sticky top-0 z-50 border-b border-foreground/15 bg-(--header-bg) px-4 backdrop-blur-lg">
@@ -27,19 +27,25 @@ export function Header() {
         </h2>
 
         {session?.user && (
-          <div className="order-3 flex w-full flex-wrap items-center gap-x-4 gap-y-1 pb-1 text-sm font-semibold sm:order-0 sm:w-auto sm:flex-nowrap sm:pb-0">
-            <Link
-              href="/dashboard"
-              className={`nav-link${isActive('/dashboard') ? ' is-active' : ''}`}
+          <div className="order-3 flex w-full flex-wrap items-center gap-x-1 gap-y-1 pb-1 sm:order-0 sm:w-auto sm:flex-nowrap sm:pb-0">
+            <Button
+              variant="ghost"
+              size="sm"
+              asChild
+              data-active={isActive("/dashboard") && !isActive("/dashboard/perfil")}
+              className="nav-link font-semibold"
             >
-              Painel
-            </Link>
-            <Link
-              href="/dashboard/perfil"
-              className={`nav-link${isActive('/dashboard/perfil') ? ' is-active' : ''}`}
+              <Link href="/dashboard">Painel</Link>
+            </Button>
+            <Button
+              variant="ghost"
+              size="sm"
+              asChild
+              data-active={isActive("/dashboard/perfil")}
+              className="nav-link font-semibold"
             >
-              Perfil
-            </Link>
+              <Link href="/dashboard/perfil">Perfil</Link>
+            </Button>
           </div>
         )}
 
@@ -47,12 +53,17 @@ export function Header() {
           {session?.user ? (
             <div className="flex items-center gap-2">
               <span className="hidden text-sm text-(--sea-ink-soft) sm:block">
-                {session.user.name?.split(' ')[0]}
+                {session.user.name?.split(" ")[0]}
               </span>
             </div>
           ) : (
             <div className="flex items-center gap-2">
-              <Button variant="outline" size="sm" asChild className="rounded-full">
+              <Button
+                variant="outline"
+                size="sm"
+                asChild
+                className="rounded-full"
+              >
                 <Link href="/sign-in">Entrar</Link>
               </Button>
               <Button size="sm" asChild className="rounded-full">
@@ -64,5 +75,5 @@ export function Header() {
         </div>
       </nav>
     </header>
-  )
+  );
 }

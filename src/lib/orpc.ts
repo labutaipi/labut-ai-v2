@@ -2,7 +2,7 @@ import type { RouterClient } from '@orpc/server'
 import { createORPCClient } from '@orpc/client'
 import { RPCLink } from '@orpc/client/fetch'
 import { createTanstackQueryUtils } from '@orpc/tanstack-query'
-import type { appRouter } from '@/server/routers'
+import type { appRouter } from '@/app/routes'
 
 declare global {
   var $client: RouterClient<typeof appRouter> | undefined
@@ -11,7 +11,7 @@ declare global {
 const link = new RPCLink({
   url: () => {
     if (typeof window === 'undefined') throw new Error('RPCLink não permitido no servidor.')
-    return `${window.location.origin}/rpc`
+    return `${window.location.origin}/api`
   },
 })
 
