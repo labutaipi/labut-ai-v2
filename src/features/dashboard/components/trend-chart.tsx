@@ -82,8 +82,8 @@ export default function TrendChart({ data, keywords }: TrendChartProps) {
         <defs>
           {visibleKeywords.map((keyWorld, i) => (
             <linearGradient
-              key={keyWorld}
-              id={`gradient-${keyWorld}-${i}`}
+              key={i}
+              id={`gradient-${i}`}
               x1="0"
               y1="0"
               x2="0"
@@ -139,7 +139,7 @@ export default function TrendChart({ data, keywords }: TrendChartProps) {
             dataKey={keyWorld}
             stroke={COLORS[i % COLORS.length]}
             strokeWidth={2}
-            fill={`url(#gradient-${keyWorld}-${i})`}
+            fill={`url(#gradient-${i})`}
             dot={false}
             activeDot={{ r: 4 }}
           />
@@ -151,6 +151,7 @@ export default function TrendChart({ data, keywords }: TrendChartProps) {
 
 function formatDate(dateStr: string) {
   if (!dateStr) return "";
-  const parts = dateStr.split("–");
-  return parts[0]?.trim().slice(0, 6) ?? dateStr;
+  // Split on em dash or en dash; return full start date to avoid collisions
+  const [start] = dateStr.split(/\s*[–—]\s*/);
+  return start?.trim() ?? dateStr;
 }

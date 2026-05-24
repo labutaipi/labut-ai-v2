@@ -2,9 +2,9 @@
 
 import { useRouter } from 'next/navigation'
 import { useState } from 'react'
-import SegmentPicker from '@/components/onboarding/SegmentPicker'
-import CityPicker from '@/components/onboarding/CityPicker'
-import AudiencePicker from '@/components/onboarding/AudiencePicker'
+import SegmentPicker from '@/components/onboarding/segment-picker'
+import CityPicker from '@/components/onboarding/city-picker'
+import AudiencePicker from '@/components/onboarding/audience-picker'
 import type { SegmentSlug } from '@/lib/segments'
 import type { CitySlug } from '@/lib/cities'
 import type { AudienceSlug } from '@/lib/audiences'
