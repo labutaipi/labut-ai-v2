@@ -9,7 +9,7 @@ export function Footer() {
         <div>
           <p className="m-0 text-sm font-semibold text-(--sea-ink)">Labut AI</p>
           <p className="m-0 mt-1 text-xs">
-            Inteligência de mercado para MEIs do Teresina &copy; {year}
+            Inteligência de mercado para MEIs de Teresina &copy; {year}
           </p>
         </div>
       </div>
